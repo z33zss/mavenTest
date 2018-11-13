@@ -12,7 +12,8 @@
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 	</context:component-scan>
 	<!-- 配置数据源 -->
-	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" 
+        destroy-method="close">
 	    <property name="driverClassName" value="${jdbc.driver}"/>
         <property name="url" value="${jdbc.url}"/>
         <property name="username" value="${jdbc.username}"/>
@@ -42,13 +43,12 @@
 	<!-- 配置工厂 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"/>
-		<property name="mappingLocations" value="classpath:/mappings/*.xml"></property>
+		<property name="mapperLocations" value="classpath:mappings/*.xml"></property>
 	</bean>
 	<!-- dao接口所在的类名，spring会自哦对那个查找其下的类 -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="sqlSessionFactory" value="sqlSessionFactory"/>
 		<property name="basePackage" value="com.julong"/>
-		<property name="annotationClass" value="com.qiancheng.check.common.annotation.MyBatisDao"/>
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
 	</bean>
 	<!-- 配置事务管理器 -->
 	<bean id="transManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">

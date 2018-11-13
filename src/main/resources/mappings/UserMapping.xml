@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.julong.dao.UserMapping">
+	<select id="selAll" resultType="com.julong.entityBean.UserBean" parameterType="com.julong.entityBean.UserBean">
+		select 
+			userid,username,sex,age
+		from tab_user
+		<where>
+			<if test="userid!=null">
+				and userid=#{userid}
+			</if>
+			<if test="username!=null">
+				and username like concat('%',#{username},'%')
+			</if>
+		</where>
+	</select>
+</mapper>
